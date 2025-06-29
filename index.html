@@ -2,137 +2,202 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>تصريح خروج - أ/ أمل</title>
+  <title>تصريح خروج مؤقت - مدارس التربية النموذجية - الريان (بنات)</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
     body {
-      background: linear-gradient(to bottom, #fff8dc, #f9e79f);
-      font-family: 'Segoe UI', sans-serif;
+      background: #fff9e6; /* خلفية فاتحة دافئة */
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      color: #000; /* النص أسود */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+      width: 350px;
+      padding: 30px 25px;
       text-align: center;
-      padding: 40px;
     }
 
     h1 {
-      color: #b8860b;
-      margin-bottom: 30px;
+      color: #d4af37; /* لون ذهبي فاخر */
+      margin-bottom: 25px;
+      font-weight: 900;
+      font-size: 22px;
     }
 
     label {
-      font-weight: bold;
+      display: block;
+      margin: 15px 0 5px 0;
+      font-weight: 700;
+      font-size: 17px;
     }
 
-    input, select, button {
+    input[type="text"] {
+      width: 100%;
       padding: 10px;
-      width: 90%;
-      margin: 10px 0;
       font-size: 16px;
+      border: 2px solid #d4af37;
+      border-radius: 8px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #b8860b;
+    }
+
+    .movement-type {
+      margin: 15px 0;
+      font-weight: 700;
+      font-size: 18px;
+      color: #000;
     }
 
     button {
-      background-color: gold;
+      width: 100%;
+      background-color: #d4af37;
       border: none;
-      font-weight: bold;
+      padding: 12px 0;
+      font-weight: 800;
+      font-size: 18px;
+      border-radius: 10px;
       cursor: pointer;
+      color: #fff;
+      margin-top: 25px;
+      box-shadow: 0 4px 8px rgba(212, 175, 55, 0.6);
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #d4af37;
+      background-color: #b8860b;
     }
 
     .card {
-      background: white;
-      border: 2px solid #ffd700;
+      margin-top: 30px;
+      background: #fffbe6;
+      border: 2px solid #d4af37;
       border-radius: 15px;
       padding: 20px;
-      margin-top: 30px;
-      box-shadow: 0 0 10px #ccc;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
       display: none;
     }
 
-    .timer {
+    .card h2 {
+      color: #b8860b;
+      font-weight: 900;
+      margin-bottom: 15px;
       font-size: 20px;
+    }
+
+    .card p {
+      font-size: 16px;
+      margin: 8px 0;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .timer {
+      font-size: 18px;
       margin-top: 15px;
-      color: #444;
+      font-weight: 700;
+      color: #7a6600;
+    }
+
+    .final-time {
+      margin-top: 20px;
+      font-weight: 900;
+      font-size: 18px;
+      color: #b8860b;
     }
   </style>
 </head>
 <body>
 
-  <h1>تصريح خروج الطالبة</h1>
+  <div class="container">
 
-  <div id="form-section">
-    <label>اسم الطالبة:</label><br>
-    <input type="text" id="studentName" required><br>
+    <h1>مدارس التربية النموذجية - الريان (بنات)</h1>
 
-    <label>نوع الحركة:</label><br>
-    <select id="movementType">
-      <option value="خروج">خروج</option>
-      <option value="استئذان">استئذان</option>
-    </select><br>
+    <label for="studentName">اسم الطالبة</label>
+    <input type="text" id="studentName" placeholder="أدخل اسم الطالبة" required />
 
-    <button onclick="startExit()">تسجيل خروج</button>
-  </div>
+    <div class="movement-type">خروج مؤقت</div>
 
-  <div class="card" id="exitCard">
-    <h2>تم تسجيل الخروج ✅</h2>
-    <p><strong>الاسم:</strong> <span id="nameDisplay"></span></p>
-    <p><strong>نوع الحركة:</strong> <span id="movementDisplay"></span></p>
-    <p><strong>المعلمة:</strong> أ/ أمل</p>
-    <p><strong>المادة:</strong> إنجليزي</p>
-    <p><strong>الغرض:</strong> الخروج المؤقت</p>
-    <div class="timer">
-      مدة الغياب: <span id="timer">0 دقيقة 0 ثانية</span>
+    <button id="startBtn">تسجيل خروج مؤقت</button>
+
+    <div class="card" id="exitCard">
+      <h2>تم تسجيل الخروج بنجاح ✅</h2>
+      <p><strong>الاسم:</strong> <span id="nameDisplay"></span></p>
+      <p><strong>نوع الحركة:</strong> خروج مؤقت</p>
+      <p><strong>المعلمة:</strong> أ/ أمل</p>
+      <p><strong>المادة:</strong> إنجليزي</p>
+      <div class="timer">
+        مدة الغياب: <span id="timer">0 دقيقة 0 ثانية</span>
+      </div>
+      <button id="returnBtn">رجوع</button>
+      <div class="final-time" id="finalTime"></div>
     </div>
-    <button onclick="returnBack()">رجوع</button>
-    <div class="timer" id="finalTime" style="font-weight:bold;"></div>
+
   </div>
 
-  <script>
-    let startTime;
-    let interval;
+<script>
+  const startBtn = document.getElementById('startBtn');
+  const returnBtn = document.getElementById('returnBtn');
+  const exitCard = document.getElementById('exitCard');
+  const nameInput = document.getElementById('studentName');
+  const nameDisplay = document.getElementById('nameDisplay');
+  const timerDisplay = document.getElementById('timer');
+  const finalTimeDisplay = document.getElementById('finalTime');
 
-    function startExit() {
-      const name = document.getElementById("studentName").value.trim();
-      const movement = document.getElementById("movementType").value;
+  let startTime;
+  let timerInterval;
 
-      if (!name) {
-        alert("من فضلك أدخلي اسم الطالبة");
-        return;
-      }
-
-      // عرض البيانات
-      document.getElementById("nameDisplay").textContent = name;
-      document.getElementById("movementDisplay").textContent = movement;
-
-      // إخفاء النموذج
-      document.getElementById("form-section").style.display = "none";
-
-      // إظهار التصريح
-      document.getElementById("exitCard").style.display = "block";
-
-      // بدء التوقيت
-      startTime = new Date();
-      interval = setInterval(updateTimer, 1000);
+  startBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    if (!name) {
+      alert('من فضلك أدخلي اسم الطالبة');
+      return;
     }
 
-    function updateTimer() {
+    nameDisplay.textContent = name;
+    exitCard.style.display = 'block';
+
+    // إخفاء الحقول
+    nameInput.style.display = 'none';
+    startBtn.style.display = 'none';
+
+    // بداية التوقيت
+    startTime = new Date();
+    timerInterval = setInterval(() => {
       const now = new Date();
       const diff = Math.floor((now - startTime) / 1000);
       const minutes = Math.floor(diff / 60);
       const seconds = diff % 60;
-      document.getElementById("timer").textContent = `${minutes} دقيقة ${seconds} ثانية`;
-    }
+      timerDisplay.textContent = `${minutes} دقيقة ${seconds} ثانية`;
+    }, 1000);
+  });
 
-    function returnBack() {
-      clearInterval(interval);
-      const now = new Date();
-      const totalSeconds = Math.floor((now - startTime) / 1000);
-      const minutes = Math.floor(totalSeconds / 60);
-      const seconds = totalSeconds % 60;
+  returnBtn.addEventListener('click', () => {
+    clearInterval(timerInterval);
+    const now = new Date();
+    const diff = Math.floor((now - startTime) / 1000);
+    const minutes = Math.floor(diff / 60);
+    const seconds = diff % 60;
+    finalTimeDisplay.textContent = `مدة الغياب كانت: ${minutes} دقيقة و ${seconds} ثانية`;
 
-      document.getElementById("finalTime").textContent =
-        `تم الرجوع ✅ مدة الغياب كانت: ${minutes} دقيقة و ${seconds} ثانية`;
-    }
-  </script>
+    // إظهار زر الرجوع فقط (إذا تبين تخلي الحقول ترجع تظهر، قولي لي)
+    returnBtn.disabled = true;
+  });
+</script>
 
 </body>
 </html>
